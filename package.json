@@ -1,0 +1,40 @@
+{
+  "name": "geniuscout",
+  "version": "0.0.1",
+  "description": "An AI-powered talent scout.",
+  "productName": "GeniuScout",
+  "cordovaId": "org.cordova.quasar.app",
+  "capacitorId": "",
+  "author": "RotemBot <rotemfridman@gmail.com>",
+  "private": true,
+  "scripts": {
+    "lint": "tslint -c tslint.json 'src/**/*.ts",
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.0.0",
+    "axios": "^0.18.1",
+    "fork-ts-checker-webpack-plugin": "^4.1.3",
+    "lodash": "^4.17.15",
+    "quasar": "^1.9.5",
+    "typescript-tslint-plugin": "^0.5.5",
+    "vue-class-component": "^7.2.2",
+    "vue-i18n": "^8.0.0",
+    "vue-property-decorator": "^8.3.0"
+  },
+  "devDependencies": {
+    "@quasar/app": "^1.8.10",
+    "@types/lodash": "^4.14.152",
+    "@types/node": "^10.17.15",
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.2"
+  },
+  "engines": {
+    "node": ">= 10.18.1",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  },
+  "browserslist": [
+    "last 1 version, not dead, ie >= 11"
+  ]
+}
