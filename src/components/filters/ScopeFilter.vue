@@ -1,34 +1,38 @@
 <template>
     <div class="column justify-between full-height" id="scope_filters">
-        <div>
+        <div class="row justify-center">
             <flags></flags>
-            <q-select
-                    v-model="selectedCountries"
-                    multiple
-                    :options="filteredCountryOptions"
-                    borderless
-                    use-input
-                    @filter="filterOptions"
-                    @input="generateMarker"
-                    menu-shrink
-            >
-                <template v-slot:option="scope">
-                    <q-item
-                            v-bind="scope.itemProps"
-                            v-on="scope.itemEvents"
-                    >
-                        <q-item-section avatar>
-                            <q-img :src="scope.opt.flag"></q-img>
-                        </q-item-section>
-                        <q-item-section>
-                            <q-item-label v-html="scope.opt.label" />
-                            <q-item-label caption>{{ scope.opt.continent }}</q-item-label>
-                        </q-item-section>
-                    </q-item>
-                </template>
-            </q-select>
+            <div class="column col-auto">
+                <q-select
+                        v-model="selectedCountries"
+                        multiple
+                        :options="filteredCountryOptions"
+                        use-input
+                        @filter="filterOptions"
+                        @input="generateMarker"
+                        rounded
+                        standout="bg-accent text-black"
+                        placeholder="Select Countries"
+                        behavior="menu"
+                >
+                    <template v-slot:option="scope">
+                        <q-item
+                                v-bind="scope.itemProps"
+                                v-on="scope.itemEvents"
+                        >
+                            <q-item-section avatar>
+                                <q-img :src="scope.opt.flag"></q-img>
+                            </q-item-section>
+                            <q-item-section>
+                                <q-item-label v-html="scope.opt.label" />
+                                <q-item-label caption>{{ scope.opt.continent }}</q-item-label>
+                            </q-item-section>
+                        </q-item>
+                    </template>
+                </q-select>
+            </div>
         </div>
-        <div id="earth_div"></div>
+        <div class="row" id="earth_div"></div>
     </div>
 
 </template>
@@ -38,7 +42,6 @@
     import {Country, CountryAbbreviation, CountryContinent, CountryLocation} from '../../models'
     import Flags from './Flags.vue'
     import {filterOptions} from '../../utils'
-    import * as _ from 'lodash'
 
     @Component({name: 'scope-filter',
         components: {Flags}
