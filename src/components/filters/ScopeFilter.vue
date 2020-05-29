@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="row justify-center selected-countries">
-            <selected-countries :countries="selectedCountries"></selected-countries>
+            <selected-countries v-model="selectedCountries"></selected-countries>
         </div>
     </div>
 
@@ -76,9 +76,6 @@
 
         public async selectionUpdated () {
             this.filteredCountryOptions = _.difference(this.filteredCountryOptions, this.selectedCountries)
-            for (const country of this.selectedCountries) {
-                await footballAPI.loadLeaguesByCountry(country.country)
-            }
         }
 
         private _getCountryLocation (country: string): { lt: number, ln: number } | null {
