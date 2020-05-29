@@ -22,3 +22,18 @@ export interface SelectOption {
     rightTextColor?: string
     className?: string
 }
+
+export interface TableColumn {
+    name: string
+    label: string
+    field: string
+    required?: boolean
+    align?: 'left' | 'right' | 'center'
+    sortable?: boolean
+    sort?: (a: any, b: any, rowA: object, rowB: object) => number
+    format?: (val: any, row: object) => any
+    style?: string
+    classes?: string
+    headerStyle?: string
+    headerClasses?: string
+}

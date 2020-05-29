@@ -22,7 +22,7 @@ export function filterOptions (
 export function termContained (term: string, toCompare: any) {
     if (_.isObject(toCompare)) {
         toCompare = toCompare as SelectOption
-        return (toCompare.label).toLowerCase().includes(term.toLowerCase())
+        return (toCompare.country).toLowerCase().includes(term.toLowerCase())
     }
     else if (_.isString(toCompare)) {
         return (toCompare).toLowerCase().includes(term.toLowerCase())

@@ -1,7 +1,6 @@
 <template>
-    <div class="column justify-between full-height" id="scope_filters">
+    <div class="column justify-start full-height" id="scope_filters">
         <div class="row justify-center">
-            <flags></flags>
             <div class="column col-auto">
                 <q-select
                         v-model="selectedCountries"
@@ -9,11 +8,12 @@
                         :options="filteredCountryOptions"
                         use-input
                         @filter="filterOptions"
-                        @input="generateMarker"
+                        @input="selectionUpdated"
                         rounded
                         standout="bg-accent text-black"
                         placeholder="Select Countries"
                         behavior="menu"
+                        hide-selected
                 >
                     <template v-slot:option="scope">
                         <q-item
@@ -24,87 +24,61 @@
                                 <q-img :src="scope.opt.flag"></q-img>
                             </q-item-section>
                             <q-item-section>
-                                <q-item-label v-html="scope.opt.label" />
-                                <q-item-label caption>{{ scope.opt.continent }}</q-item-label>
+                                <q-item-label v-html="scope.opt.country" />
                             </q-item-section>
                         </q-item>
                     </template>
                 </q-select>
             </div>
         </div>
-        <div class="row" id="earth_div"></div>
+        <div class="row justify-center selected-countries">
+            <selected-countries :countries="selectedCountries"></selected-countries>
+        </div>
     </div>
 
 </template>
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
-    import {Country, CountryAbbreviation, CountryContinent, CountryLocation} from '../../models'
+    import {Country, CountryContinent, CountryLocation} from '../../models'
     import Flags from './Flags.vue'
     import {filterOptions} from '../../utils'
+    import * as _ from 'lodash'
+    import SelectedCountries from './SelectedCountries.vue'
+    import {footballAPI} from '../../services/FootballAPI'
 
     @Component({name: 'scope-filter',
-        components: {Flags}
+        components: {SelectedCountries, Flags}
     })
     export default class ScopeFilter extends Vue {
-        public earth: any = null
         public countries: Country[] = []
         public filteredCountryOptions: Country[] = []
         public selectedCountries: Country[] = []
         public countriesByContinent = require('../../assets/jsons/country-by-continent.json') as CountryContinent[]
         public countriesByLocation = require('../../assets/jsons/country-by-geolocation.json') as CountryLocation[]
-        public countryByAbbreviation = require('../../assets/jsons/country-by-abbreviation.json') as CountryAbbreviation[]
 
-        public mounted () {
-            this._generateCountries()
+        public async mounted () {
+            await footballAPI.loadCountries()
+            this.countries = footballAPI.countries
             this.filteredCountryOptions = this.countries
-            // @ts-ignore
-            this.earth = new WE.map('earth_div', { zooming: false })
-            // @ts-ignore
-            WE.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.earth)
-            this.earth.setView([31.4117257, 35.0818155], 2)
             // @ts-ignore
             window.scopeFilter = this
         }
 
+        public get optionsWithoutSelected () {
+            return _.difference(this.countries, this.selectedCountries)
+        }
+
         public filterOptions (term: string, update: Function) {
             const setFiltered = (val: any) => { this.filteredCountryOptions = val }
-            filterOptions( { term, update, options: this.countries, setFiltered } )
+            filterOptions( { term, update, options: this.optionsWithoutSelected, setFiltered } )
         }
 
-        private _generateCountries () {
-            for (const country of this.countryByAbbreviation) {
-                const abbreviation = country.abbreviation
-                const continent = this._getCountryContinent(country.country)!
-                const label = country.country
-                const flag = require(`../../assets/flags/30x20/${abbreviation.toLowerCase()}.png`)
-                this.countries.push(new Country({
-                    label,
-                    abbreviation,
-                    continent,
-                    flag
-                }))
+        public async selectionUpdated () {
+            this.filteredCountryOptions = _.difference(this.filteredCountryOptions, this.selectedCountries)
+            for (const country of this.selectedCountries) {
+                await footballAPI.loadLeaguesByCountry(country.country)
             }
-        }
-
-        public generateMarker (countries: Country[]) {
-            const country = countries[countries.length - 1]
-            const img = document.getElementById(`${country.label.toLowerCase()}_flag`) as HTMLImageElement
-            const location = this._getCountryLocation(country.label)
-            if (!location) {
-                console.warn(`Couldn't find location for country ${country.label}`)
-                return
-            }
-            // @ts-ignore
-            const marker = WE.marker([location.lt, location.ln], img.src, img.width, 20).addTo(this.earth)
-            marker.bindPopup(
-                `<span style=\'font-size: 10pt;color: black\'>
-                    <b>${country.label}</b>, ${country.continent}
-                </span>`,
-                {maxWidth: 150, closeButton: true}
-            )
-            country.globeMarker = marker
-            this.earth.panTo([location.lt, location.ln])
         }
 
         private _getCountryLocation (country: string): { lt: number, ln: number } | null {
@@ -132,8 +106,9 @@
 </script>
 
 <style lang="stylus" scoped>
-    #earth_div {
+    .selected-countries {
         flex-grow 1
+        margin-top 15px
     }
 </style>
 <style lang="stylus">

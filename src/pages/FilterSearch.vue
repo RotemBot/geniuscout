@@ -3,6 +3,7 @@
         <q-tab-panels
             v-model="currentFilter"
             style="flex-grow: 1"
+            keep-alive
         >
             <q-tab-panel name="scope">
                 <scope-filter></scope-filter>
