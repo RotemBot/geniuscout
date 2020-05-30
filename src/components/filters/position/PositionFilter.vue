@@ -24,10 +24,18 @@
                 </template>
             </q-select>
         </div>
-        <div class="row justify-center">
-            <field-position
-                    v-model="selectedPosition"
-            ></field-position>
+        <div class="row" style="flex-grow: 1">
+            <div class="column col" style="height: 100%; margin-top: 15px">
+                <q-scroll-area
+                        style="height: 100%"
+                >
+                    <div class="row justify-center">
+                        <field-position
+                                v-model="selectedPosition"
+                        ></field-position>
+                    </div>
+                </q-scroll-area>
+            </div>
         </div>
     </div>
 </template>
