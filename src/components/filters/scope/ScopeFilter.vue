@@ -40,12 +40,12 @@
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
-    import {Country, CountryContinent, CountryLocation} from '../../models'
-    import Flags from './Flags.vue'
-    import {filterOptions} from '../../utils'
+    import {Country, CountryContinent, CountryLocation} from '../../../models'
+    import Flags from '../Flags.vue'
+    import {filterOptions} from '../../../utils'
     import * as _ from 'lodash'
     import SelectedCountries from './SelectedCountries.vue'
-    import {footballAPI} from '../../services/FootballAPI'
+    import {footballAPI} from '../../../services/FootballAPI'
 
     @Component({name: 'scope-filter',
         components: {SelectedCountries, Flags}
@@ -54,8 +54,8 @@
         public countries: Country[] = []
         public filteredCountryOptions: Country[] = []
         public selectedCountries: Country[] = []
-        public countriesByContinent = require('../../assets/jsons/country-by-continent.json') as CountryContinent[]
-        public countriesByLocation = require('../../assets/jsons/country-by-geolocation.json') as CountryLocation[]
+        public countriesByContinent = require('../../../assets/jsons/country-by-continent.json') as CountryContinent[]
+        public countriesByLocation = require('../../../assets/jsons/country-by-geolocation.json') as CountryLocation[]
 
         public async mounted () {
             await footballAPI.loadCountries()

@@ -8,8 +8,10 @@
             <q-tab-panel name="scope">
                 <scope-filter></scope-filter>
             </q-tab-panel>
+            <q-tab-panel name="position">
+                <position-filter></position-filter>
+            </q-tab-panel>
             <q-tab-panel name="physical"></q-tab-panel>
-            <q-tab-panel name="position"></q-tab-panel>
             <q-tab-panel name="finishing"></q-tab-panel>
             <q-tab-panel name="air_struggles"></q-tab-panel>
         </q-tab-panels>
@@ -25,14 +27,14 @@
                     icon="my_location"
             ></q-tab>
             <q-tab
-                    name="physical"
-                    label="Physical Attributes"
-                    icon="directions_run"
-            ></q-tab>
-            <q-tab
                     name="position"
                     label="Position"
                     icon="sports_soccer"
+            ></q-tab>
+            <q-tab
+                    name="physical"
+                    label="Physical Attributes"
+                    icon="directions_run"
             ></q-tab>
             <q-tab
                     name="finishing"
@@ -50,15 +52,17 @@
 
 <script lang="ts">
     import {Vue, Component} from 'vue-property-decorator'
-    import ScopeFilter from '../components/filters/ScopeFilter.vue'
+    import ScopeFilter from '../components/filters/scope/ScopeFilter.vue'
+    import PositionFilter from '../components/filters/position/PositionFilter.vue'
 
     @Component({ name: 'filter-search',
         components: {
+            PositionFilter,
             ScopeFilter
         }
     })
     export default class FilterSearch extends Vue {
-        public currentFilter: string = 'scope'
+        public currentFilter: string = 'position'
     }
 </script>
 

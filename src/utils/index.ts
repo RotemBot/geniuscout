@@ -29,3 +29,13 @@ export function termContained (term: string, toCompare: any) {
     }
     else { return false }
 }
+
+export async function createImgElementFromURL (url: string): Promise<HTMLImageElement> {
+    if (!url || !url.length) {
+        throw new Error(`Can't create image from empty DataURL`)
+    }
+    const img = new Image()
+    img.src = url
+    await new Promise((resolve) => img.onload = resolve)
+    return img
+}

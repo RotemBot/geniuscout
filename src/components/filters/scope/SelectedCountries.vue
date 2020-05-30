@@ -96,7 +96,7 @@
 <script lang="ts">
     import {Component, Model, Vue, Watch} from 'vue-property-decorator'
     import {Country, TableColumn} from '@/models'
-    import FootballAPI, {footballAPI} from '../../services/FootballAPI'
+    import FootballAPI, {footballAPI} from '../../../services/FootballAPI'
 
     @Component({name: 'selected-countries'})
     export default class SelectedCountries extends Vue {
