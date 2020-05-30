@@ -14,6 +14,15 @@
                 <template v-slot:item="props">
                     <div class="q-pa-xs col-xs-12 col-sm-6 col-md-3">
                         <q-card class="bg-black">
+                            <q-card-actions>
+                                <q-btn
+                                        icon="close"
+                                        size="sm"
+                                        flat
+                                        color="negative"
+                                        @click="removeCountry(props.row)"
+                                ></q-btn>
+                            </q-card-actions>
                             <q-card-section class="text-center">
                                 <q-img
                                         :src="props.row.flag"
@@ -44,6 +53,7 @@
                                         filled
                                         hide-dropdown-icon
                                         @focus="api.loadLeaguesByCountry(props.row.country)"
+                                        v-if="!loading"
                                 >
                                     <template v-slot:selected-item="scope">
                                         <q-chip
@@ -92,6 +102,7 @@
     export default class SelectedCountries extends Vue {
         public api: FootballAPI = footballAPI
         public selectedLeagues: { [countryName: string]: string[] } = {}
+        public loading: boolean = false
         public pagination: any = {
             rowsPerPage: 0
         }
@@ -101,14 +112,18 @@
 
         @Watch('countries')
         public async selectedCountriesChanged () {
+            this.loading = true
+            // @ts-ignore
+            this.$q.loading.show({
+                delay: 0
+            })
             for (const country of this.countries) {
                 await this.api.loadLeaguesByCountry(country.country)
             }
             Vue.nextTick(() => { this.$forceUpdate() })
-        }
-
-        public update () {
-            Vue.nextTick(() => { this.$forceUpdate() })
+            // @ts-ignore
+            this.$q.loading.hide()
+            this.loading = false
         }
 
         public cols: TableColumn[] = [
@@ -137,6 +152,13 @@
                 sortable: false
             }
         ]
+
+        public removeCountry (toRemove: Country) {
+            const updatedCountries = this.countries.filter((c: Country) => {
+                return c.country !== toRemove.country
+            })
+            this.$emit('update', updatedCountries)
+        }
 
         public mounted () {
             // @ts-ignore
