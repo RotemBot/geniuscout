@@ -5,7 +5,7 @@ export enum Position {
     WINGER,
     MIDFIELDER,
     DEFENSE,
-    GOAL_KEEPER
+    GOALKEEPER
 }
 
 export class FieldSetup {
@@ -37,8 +37,8 @@ export class FieldSetup {
         switch (this.position) {
             case Position.DEFENSE:
                 return 'Defense (B)'
-            case Position.GOAL_KEEPER:
-                return 'Goal Keeper (GK)'
+            case Position.GOALKEEPER:
+                return 'Goalkeeper (GK)'
             case Position.MIDFIELDER:
                 return 'Midfielder (MF)'
             case Position.STRIKER:
@@ -51,6 +51,9 @@ export class FieldSetup {
 }
 
 export const positions = [
+    new FieldSetup({ position: Position.GOALKEEPER,
+        options: [{ name: 'GK', location: new Point(0.93, 0.5) }
+        ] }),
     new FieldSetup({ position: Position.DEFENSE,
         options: [
             { name: 'LB', location: new Point(0.795, 0.8) },
@@ -60,9 +63,6 @@ export const positions = [
             { name: 'RCB', location: new Point(0.795, 0.35) }
         ]
     }),
-    new FieldSetup({ position: Position.GOAL_KEEPER,
-        options: [{ name: 'GK', location: new Point(0.93, 0.5) }
-        ] }),
     new FieldSetup({ position: Position.MIDFIELDER,
         options: [
             { name: 'Box to Box - Right', location: new Point(0.5, 0.38) },
@@ -72,17 +72,17 @@ export const positions = [
             { name: 'LDM', location: new Point(0.577, 0.62) },
             { name: 'Playmaker', location: new Point(0.423, 0.5) },
         ] }),
+    new FieldSetup({ position: Position.WINGER, options: [
+            { name: 'LMW', location: new Point(0.5, 0.1) },
+            { name: 'RMW', location: new Point(0.5, 0.9) },
+            { name: 'RW', location: new Point(0.3, 0.8) },
+            { name: 'LW', location: new Point(0.3, 0.2) }
+        ]  }),
     new FieldSetup({ position: Position.STRIKER,
         options: [
             { name: 'False 9', location: new Point(0.3, 0.5) },
             { name: 'Classic 9', location: new Point(0.19, 0.5) },
             { name: 'ST', location: new Point(0.19, 0.39) },
             { name: 'ST', location: new Point(0.19, 0.6) }
-        ]}),
-    new FieldSetup({ position: Position.WINGER, options: [
-            { name: 'LMW', location: new Point(0.5, 0.1) },
-            { name: 'RMW', location: new Point(0.5, 0.9) },
-            { name: 'RW', location: new Point(0.3, 0.8) },
-            { name: 'LW', location: new Point(0.3, 0.2) }
-        ]  })
+        ]})
 ]

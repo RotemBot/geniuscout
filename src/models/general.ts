@@ -49,3 +49,14 @@ export class Point implements Point {
         this.y = y
     }
 }
+
+export enum Inclination {
+    LEFT,
+    RIGHT,
+    BOTH
+}
+
+export interface Range {
+    min: number
+    max: number
+}

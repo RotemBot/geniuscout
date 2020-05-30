@@ -11,7 +11,9 @@
             <q-tab-panel name="position">
                 <position-filter></position-filter>
             </q-tab-panel>
-            <q-tab-panel name="physical"></q-tab-panel>
+            <q-tab-panel name="physical">
+                <physical-filter></physical-filter>
+            </q-tab-panel>
             <q-tab-panel name="finishing"></q-tab-panel>
             <q-tab-panel name="air_struggles"></q-tab-panel>
         </q-tab-panels>
@@ -54,9 +56,11 @@
     import {Vue, Component} from 'vue-property-decorator'
     import ScopeFilter from '../components/filters/scope/ScopeFilter.vue'
     import PositionFilter from '../components/filters/position/PositionFilter.vue'
+    import PhysicalFilter from '../components/filters/physical/PhysicalFilter.vue'
 
     @Component({ name: 'filter-search',
         components: {
+            PhysicalFilter,
             PositionFilter,
             ScopeFilter
         }
