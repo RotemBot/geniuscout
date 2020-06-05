@@ -14,7 +14,9 @@
             <q-tab-panel name="physical">
                 <physical-filter></physical-filter>
             </q-tab-panel>
-            <q-tab-panel name="finishing"></q-tab-panel>
+            <q-tab-panel name="finishing">
+                <finishing-levels></finishing-levels>
+            </q-tab-panel>
             <q-tab-panel name="air_struggles"></q-tab-panel>
         </q-tab-panels>
         <q-tabs
@@ -57,9 +59,11 @@
     import ScopeFilter from '../components/filters/scope/ScopeFilter.vue'
     import PositionFilter from '../components/filters/position/PositionFilter.vue'
     import PhysicalFilter from '../components/filters/physical/PhysicalFilter.vue'
+    import FinishingLevels from '../components/filters/finishing/FinishingLevels.vue'
 
     @Component({ name: 'filter-search',
         components: {
+            FinishingLevels,
             PhysicalFilter,
             PositionFilter,
             ScopeFilter
