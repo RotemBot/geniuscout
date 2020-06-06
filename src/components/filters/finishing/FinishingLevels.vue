@@ -1,5 +1,5 @@
 <template>
-    <div class="column justify-around full-height" style="overflow: scroll">
+    <div class="column justify-around full-height" style="overflow: hidden">
         <div class="row justify-center" style="height: 40%">
             <div class="video-mask">
                 <video
@@ -11,54 +11,73 @@
                 ></video>
             </div>
         </div>
-        <div class="row justify-evenly">
-            <div class="column">
-                <div class="row slider-title">
-                    Speed
-                </div>
-                <q-slider
-                        v-model="level1"
-                        :min="0"
-                        :max="100"
-                        vertical
-                        :label-value="`${level1}%`"
-                        label-always
-                        reverse
-                        color="secondary"
-                        label-text-color="black"
-                ></q-slider>
+        <div class="row justify-center">
+            <div class="column col-xs col-sm col-lg-3 col-md-4">
+                <q-item>
+                    <q-item-section avatar>
+                        <q-icon color="secondary" name="fas fa-running"></q-icon>
+                    </q-item-section>
+                    <q-item-section>
+                        <q-range
+                                v-model="speed"
+                                :min="5"
+                                :max="30"
+                                :left-label-value="`${speed.min}km/h`"
+                                :right-label-value="`${speed.max}km/h`"
+                                label-always
+                                color="secondary"
+                                label-text-color="black"
+                                drag-range
+                        ></q-range>
+                        <q-item-label>Speed</q-item-label>
+                    </q-item-section>
+                </q-item>
             </div>
-            <div class="column">
-                <div class="row slider-title">
-                    Accuracy
-                </div>
-                <q-slider
-                        v-model="level2"
-                        :min="0"
-                        :max="100"
-                        vertical
-                        :label-value="`${level2}%`"
-                        label-always
-                        reverse
-                        color="secondary"
-                        label-text-color="black"
-                ></q-slider>
+        </div>
+        <div class="row justify-center">
+            <div class="column col-xs col-sm col-lg-3 col-md-4">
+                <q-item>
+                    <q-item-section avatar>
+                        <q-icon color="secondary" name="fas fa-bullseye"></q-icon>
+                    </q-item-section>
+                    <q-item-section>
+                        <q-range
+                                v-model="accuracy"
+                                :min="0"
+                                :max="100"
+                                :left-label-value="`${accuracy.min}%`"
+                                :right-label-value="`${accuracy.max}%`"
+                                label-always
+                                color="secondary"
+                                label-text-color="black"
+                                drag-range
+                        ></q-range>
+                        <q-item-label>Accuracy</q-item-label>
+                    </q-item-section>
+                </q-item>
             </div>
-            <div class="column">
-                <div class="row slider-title">
-                    Distance
-                </div>
-                <q-slider
-                        v-model="level3"
-                        :min="0"
-                        :max="100"
-                        vertical
-                        :label-value="`${level3}%`"
-                        label-always
-                        reverse
-                        color="secondary"
-                        label-text-color="black"
-                ></q-slider>
+        </div>
+        <div class="row justify-center">
+            <div class="column col-xs col-sm col-lg-3 col-md-4">
+                <q-item>
+                    <q-item-section avatar>
+                        <q-icon color="secondary" name="fas fa-arrows-alt-v"></q-icon>
+                    </q-item-section>
+                    <q-item-section>
+                        <q-range
+                                v-model="distance"
+                                :min="0"
+                                :max="100"
+                                :left-label-value="`${distance.min}cm`"
+                                :right-label-value="`${distance.max}cm`"
+                                label-always
+                                color="secondary"
+                                label-text-color="black"
+                                drag-range
+                        ></q-range>
+                        <q-item-label>Distance</q-item-label>
+                    </q-item-section>
+                </q-item>
             </div>
         </div>
     </div>
@@ -66,12 +85,13 @@
 
 <script lang="ts">
     import {Vue, Component} from 'vue-property-decorator'
+    import {Range} from '@/models'
 
     @Component({name: 'finishing-levels'})
     export default class FinishingLevels extends Vue {
-        public level1: number = 50
-        public level2: number = 50
-        public level3: number = 50
+        public speed: Range = { min: 10, max: 25}
+        public accuracy: Range = { min: 0, max: 100}
+        public distance: Range = { min: 0, max: 5}
     }
 </script>
 

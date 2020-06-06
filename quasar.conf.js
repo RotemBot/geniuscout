@@ -51,7 +51,7 @@ module.exports = configure(function (/* ctx */) {
             // * true   - Import everything from Quasar
             //            (not treeshaking Quasar; biggest bundle size; convenient)
             all: true,
-
+            cssAddon: true,
             components: [],
             directives: [],
 
