@@ -15,7 +15,7 @@
             <div class="column col-xs col-sm col-lg-3 col-md-4">
                 <q-item>
                     <q-item-section avatar>
-                        <q-icon color="secondary" name="fas fa-running"></q-icon>
+                        <q-icon color="accent" name="fas fa-running"></q-icon>
                     </q-item-section>
                     <q-item-section>
                         <q-range
@@ -38,7 +38,7 @@
             <div class="column col-xs col-sm col-lg-3 col-md-4">
                 <q-item>
                     <q-item-section avatar>
-                        <q-icon color="secondary" name="fas fa-bullseye"></q-icon>
+                        <q-icon color="accent" name="fas fa-bullseye"></q-icon>
                     </q-item-section>
                     <q-item-section>
                         <q-range
@@ -61,7 +61,7 @@
             <div class="column col-xs col-sm col-lg-3 col-md-4">
                 <q-item>
                     <q-item-section avatar>
-                        <q-icon color="secondary" name="fas fa-arrows-alt-v"></q-icon>
+                        <q-icon color="accent" name="fas fa-people-arrows"></q-icon>
                     </q-item-section>
                     <q-item-section>
                         <q-range
@@ -91,7 +91,7 @@
     export default class FinishingLevels extends Vue {
         public speed: Range = { min: 10, max: 25}
         public accuracy: Range = { min: 0, max: 100}
-        public distance: Range = { min: 0, max: 5}
+        public distance: Range = { min: 5, max: 25}
     }
 </script>
 
