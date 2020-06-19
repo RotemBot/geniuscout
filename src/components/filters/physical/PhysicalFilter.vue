@@ -70,6 +70,30 @@
             </div>
         </div>
         <div class="row justify-center">
+            <div class="column col-xs col-sm col-lg-3 col-md-4">
+                <q-item>
+                    <q-item-section avatar>
+                        <q-icon color="secondary" name="fas fa-birthday-cake"></q-icon>
+                    </q-item-section>
+                    <q-item-section>
+                        <q-range
+                                v-model="speed"
+                                :min="0"
+                                :max="40"
+                                :left-label-value="`${speed.min}km/h`"
+                                :right-label-value="`${speed.max}km/h`"
+                                :step="1"
+                                color="accent"
+                                label-always
+                                label-text-color="black"
+                                drag-range
+                        ></q-range>
+                        <q-item-label>Speed</q-item-label>
+                    </q-item-section>
+                </q-item>
+            </div>
+        </div>
+        <div class="row justify-center">
             <div class="column col-auto">
                 <q-btn-toggle
                         v-model="strongSide"
@@ -92,6 +116,8 @@
     export default class PhysicalFilter extends Vue {
         public weight: Range = { min: 60, max: 90 }
         public height: Range = { min: 160, max: 190 }
+        public speed: Range = { min: 20, max: 30 }
+        public firstStep: Range = { min: 160, max: 190 }
         public age: Range = { min: 20, max: 25 }
         public strongSide: Inclination = Inclination.RIGHT
 

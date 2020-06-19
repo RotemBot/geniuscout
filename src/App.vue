@@ -10,6 +10,9 @@
     }
 </script>
 <style lang="stylus">
+    .clickable {
+        cursor pointer
+    }
     /* Customize website's scrollbar like Mac OS
    Not supports in Firefox and IE */
 
@@ -32,5 +35,9 @@
 
     ::-webkit-scrollbar-corner {
         background-color $accent
+    }
+
+    .fa, .fas {
+        font-size 20px !important
     }
 </style>
